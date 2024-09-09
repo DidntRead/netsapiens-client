@@ -8,6 +8,7 @@ use Didntread\NetSapiens\Data\JsonResource;
 use Didntread\NetSapiens\Exceptions\NetSapiensException;
 
 /**
+ * @property AnswerRules $rule Parsed answer rule data.
  * @property string $time-frame The time frame for which the rule applies.
  * @property string $domain The domain associated with the rule.
  * @property string $user The user to whom the rule applies.
