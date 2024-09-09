@@ -36,6 +36,16 @@ class AnswerRulesList extends ResourceList
         return new AnswerRulesResource($this->client, $data);
     }
 
+    public function reorder(array $ids): void
+    {
+        $time_frames = array_map(function ($id) {
+            return ['time-frame' => $id];
+        }, $ids);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules/reorder", [
+            'json' => $time_frames,
+        ]);
+    }
+
     public function fetch(string $id): AnswerRulesResource
     {
         return (new AnswerRulesContext($this->client, $this->meta['domain'], $this->meta['user'], $id))->fetch();
