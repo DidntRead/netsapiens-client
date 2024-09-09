@@ -104,6 +104,7 @@ class DomainResource extends JsonResource
         foreach ($this->meta as $key => $value) {
             $context[] = "$key=$value";
         }
+
         return '[DomainResource ' . \implode(' ', $context) . ']';
     }
 }

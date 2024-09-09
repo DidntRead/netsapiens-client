@@ -9,17 +9,25 @@ use Psr\Http\Message\ResponseInterface;
 class Client
 {
     const ENV_NETSAPIENS_CLIENT_ID = 'NETSAPIENS_CLIENT_ID';
+
     const ENV_NETSAPIENS_CLIENT_SECRET = 'NETSAPIENS_CLIENT_SECRET';
+
     const ENV_NETSAPIENS_USERNAME = 'NETSAPIENS_USERNAME';
+
     const ENV_NETSAPIENS_PASSWORD = 'NETSAPIENS_PASSWORD';
+
     const ENV_NETSAPIENS_HOST = 'NETSAPIENS_HOST';
 
     protected \GuzzleHttp\Client $client;
 
     protected string $client_id;
+
     protected string $client_secret;
+
     protected string $username;
+
     protected string $password;
+
     protected ?string $access_token;
 
     /***
@@ -29,7 +37,7 @@ class Client
      * @param $baseUri - Base URI for the NetSapiens API
      * @throws ConfigurationException If valid authentication credentials are not provided
      */
-    public function __construct(string $client_id = null, string $client_secret = null, string $username = null, string $password = null, string $baseUri = null)
+    public function __construct(?string $client_id = null, ?string $client_secret = null, ?string $username = null, ?string $password = null, ?string $baseUri = null)
     {
         $this->client_id = $client_id ?? getenv(self::ENV_NETSAPIENS_CLIENT_ID);
         $this->client_secret = $client_secret ?? getenv(self::ENV_NETSAPIENS_CLIENT_SECRET);
@@ -95,6 +103,7 @@ class Client
 
             if (isset($data['access_token'])) {
                 $this->access_token = $data['access_token'];
+
                 return true;
             } else {
                 return false;
@@ -160,7 +169,8 @@ class Client
         return new List\SubscriptionList($this);
     }
 
-    public function __toString(): string {
+    public function __toString(): string
+    {
         return '[NetSapiensClient ' . $this->getUsername() . ']';
     }
 }

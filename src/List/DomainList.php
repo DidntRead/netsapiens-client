@@ -15,8 +15,9 @@ class DomainList extends ResourceList
 
     public function list(): array
     {
-        $response = $this->client->request("GET", "v2/domains");
+        $response = $this->client->request('GET', 'v2/domains');
         $data = json_decode($response->getBody(), true);
+
         return array_map(function ($item) {
             return new DomainResource($this->client, $item);
         }, $data);
@@ -24,12 +25,13 @@ class DomainList extends ResourceList
 
     public function count(): int
     {
-        $response = $this->client->request("GET", "v2/domains/count");
+        $response = $this->client->request('GET', 'v2/domains/count');
         $data = json_decode($response->getBody(), true);
+
         return $data['total'];
     }
 
-    public function create(string $domain, array $options = [], bool $return = false): null|DomainResource
+    public function create(string $domain, array $options = [], bool $return = false): ?DomainResource
     {
         if (!isset($options['domain'])) {
             $options['domain'] = $domain;
@@ -39,9 +41,12 @@ class DomainList extends ResourceList
             $options['synchronous'] = 'yes';
         }
 
-        $response = $this->client->request("POST", "v2/domains", $options);
+        $response = $this->client->request('POST', 'v2/domains', [
+            'json' => $options,
+        ]);
         if ($return) {
             $data = json_decode($response->getBody(), true);
+
             return new DomainResource($this->client, $data);
         } else {
             return null;

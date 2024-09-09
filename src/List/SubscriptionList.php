@@ -16,8 +16,9 @@ class SubscriptionList extends ResourceList
 
     public function list(): array
     {
-        $response = $this->client->request("GET", "v2/subscriptions");
+        $response = $this->client->request('GET', 'v2/subscriptions');
         $data = json_decode($response->getBody(), true);
+
         return array_map(function ($item) {
             return new SubscriptionResource($this->client, $item);
         }, $data);
@@ -25,30 +26,31 @@ class SubscriptionList extends ResourceList
 
     public function create(EventType $type, string $url, string $domain, array $options): SubscriptionResource
     {
-        $response = $this->client->request("POST", "v2/subscriptions", [
-            "json" => [
-                "event_type" => $type->value,
-                "post-url" => $url,
-                "domain" => $domain,
-            ] + $options
+        $response = $this->client->request('POST', 'v2/subscriptions', [
+            'json' => [
+                'event_type' => $type->value,
+                'post-url' => $url,
+                'domain' => $domain,
+            ] + $options,
         ]);
 
         $data = json_decode($response->getBody(), true);
+
         return new SubscriptionResource($this->client, $data);
     }
 
     public function fetch($id): SubscriptionResource
     {
-        return (new SubscriptionContext($this->client, $id))->fetch($id);
+        return (new SubscriptionContext($this->client, $id))->fetch();
     }
 
-    public function update($id, array $options): SubscriptionResource
+    public function update($id, array $options): void
     {
-        return (new SubscriptionContext($this->client, $id))->update($id, $options);
+        (new SubscriptionContext($this->client, $id))->update($options);
     }
 
-    public function delete($id): bool
+    public function delete($id): void
     {
-        return (new SubscriptionContext($this->client, $id))->delete($id);
+        (new SubscriptionContext($this->client, $id))->delete();
     }
 }
