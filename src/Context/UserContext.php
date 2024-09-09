@@ -5,6 +5,7 @@ namespace Didntread\NetSapiens\Context;
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\UserResource;
 use Didntread\NetSapiens\List\AnswerRulesList;
+use Didntread\NetSapiens\List\TimeFrameList;
 
 class UserContext extends ResourceContext
 {
@@ -40,5 +41,15 @@ class UserContext extends ResourceContext
     public function answer_rule(string $time_frame): AnswerRulesContext
     {
         return new AnswerRulesContext($this->client, $this->meta['domain'], $this->meta['id'], $time_frame);
+    }
+
+    public function time_frames(): TimeFrameList
+    {
+        return new TimeFrameList($this->client, $this->meta['domain'], $this->meta['id']);
+    }
+
+    public function time_frame(string $time_frame): TimeFrameContext
+    {
+        return new TimeFrameContext($this->client, $this->meta['domain'], $this->meta['id'], $time_frame);
     }
 }
