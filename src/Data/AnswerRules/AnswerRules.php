@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Phones\AnswerRules;
+namespace Didntread\NetSapiens\Data\AnswerRules;
 
 class AnswerRules
 {
@@ -171,8 +171,8 @@ class AnswerRules
     public function toJsonArray(): array
     {
         return [
-            'synchronous' => $this->synchronous,
-            'enabled' => $this->enabled,
+            'synchronous' => $this->synchronous ?? 'no',
+            'enabled' => $this->enabled ?? 'no',
             'simultaneous-ring' => [
                 'enabled' => $this->simultaneousRing ? $this->simultaneousRing->isEnabled() : 'no',
                 'parameters' => $this->simultaneousRing ? $this->simultaneousRing->getParameters() : [],
@@ -222,6 +222,66 @@ class AnswerRules
             'time-frame' => $this->timeFrame,
             'new-position' => $this->newPosition,
         ];
+    }
+
+    public static function deserialize(array $data): AnswerRules
+    {
+        $answerRules = new static();
+        $answerRules->setSynchronous($data['synchronous'] ?? 'no');
+        $answerRules->setEnabled($data['enabled'] ?? 'no');
+
+        if (isset($data['simultaneous-ring'])) {
+            $answerRules->setSimultaneousRing(ForwardFeature::deserialize($data['simultaneous-ring']));
+        }
+
+        if (isset($data['do-not-disturb'])) {
+            $answerRules->setDoNotDisturb(Feature::deserialize($data['do-not-disturb']));
+        }
+
+        if (isset($data['forward-always'])) {
+            $answerRules->setForwardAlways(ForwardFeature::deserialize($data['forward-always']));
+        }
+
+        if (isset($data['forward-on-active'])) {
+            $answerRules->setForwardOnActive(ForwardFeature::deserialize($data['forward-on-active']));
+        }
+
+        if (isset($data['forward-on-busy'])) {
+            $answerRules->setForwardOnBusy(ForwardFeature::deserialize($data['forward-on-busy']));
+        }
+
+        if (isset($data['forward-no-answer'])) {
+            $answerRules->setForwardNoAnswer(ForwardFeature::deserialize($data['forward-no-answer']));
+        }
+
+        if (isset($data['forward-when-unregistered'])) {
+            $answerRules->setForwardWhenUnregistered(ForwardFeature::deserialize($data['forward-when-unregistered']));
+        }
+
+        if (isset($data['forward-on-dnd'])) {
+            $answerRules->setForwardOnDnd(ForwardFeature::deserialize($data['forward-on-dnd']));
+        }
+
+        if (isset($data['forward-on-spam-call'])) {
+            $answerRules->setForwardOnSpamCall(ForwardFeature::deserialize($data['forward-on-spam-call']));
+        }
+
+        if (isset($data['call-screening'])) {
+            $answerRules->setCallScreening(Feature::deserialize($data['call-screening']));
+        }
+
+        if (isset($data['phone-numbers-to-allow'])) {
+            $answerRules->setPhoneNumbersToAllow(ForwardFeature::deserialize($data['phone-numbers-to-allow']));
+        }
+
+        if (isset($data['phone-numbers-to-reject'])) {
+            $answerRules->setPhoneNumbersToReject(ForwardFeature::deserialize($data['phone-numbers-to-reject']));
+        }
+
+        $answerRules->setTimeFrame($data['time-frame'] ?? '*');
+        $answerRules->setNewPosition($data['new-position'] ?? '');
+
+        return $answerRules;
     }
 
     public function toJson(): string

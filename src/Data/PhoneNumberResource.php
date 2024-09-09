@@ -3,6 +3,7 @@
 namespace Didntread\NetSapiens\Data;
 
 use Didntread\NetSapiens\Client;
+use Didntread\NetSapiens\Context\PhoneNumberContext;
 use Didntread\NetSapiens\Enum\DialRuleApplication;
 
 /**
@@ -46,5 +47,15 @@ class PhoneNumberResource extends JsonResource
     public function context(): PhoneNumberContext
     {
         return new PhoneNumberContext($this->client, $this->meta['domain'], $this->meta['id']);
+    }
+
+    public function __toString(): string
+    {
+        $context = [];
+        foreach ($this->meta as $key => $value) {
+            $context[] = "$key=$value";
+        }
+
+        return '[PhoneNumberResource ' . \implode(' ', $context) . ']';
     }
 }

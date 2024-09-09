@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Phones\AnswerRules;
+namespace Didntread\NetSapiens\Data\AnswerRules;
 
 class ForwardFeature extends Feature
 {
@@ -15,5 +15,10 @@ class ForwardFeature extends Feature
     public function getParameters(): array
     {
         return $this->parameters;
+    }
+
+    public static function deserialize(array $data): static
+    {
+        return new static($data['enabled'] === 'yes', $data['parameters']);
     }
 }

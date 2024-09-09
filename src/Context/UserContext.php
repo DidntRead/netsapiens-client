@@ -4,6 +4,7 @@ namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\UserResource;
+use Didntread\NetSapiens\List\AnswerRulesList;
 
 class UserContext extends ResourceContext
 {
@@ -29,5 +30,15 @@ class UserContext extends ResourceContext
     public function delete(): void
     {
         $this->client->request('DELETE', "v2/domains/{$this->meta['domain']}/users/{$this->meta['id']}");
+    }
+
+    public function answer_rules(): AnswerRulesList
+    {
+        return new AnswerRulesList($this->client, $this->meta['domain'], $this->meta['id']);
+    }
+
+    public function answer_rule(string $time_frame): AnswerRulesContext
+    {
+        return new AnswerRulesContext($this->client, $this->meta['domain'], $this->meta['id'], $time_frame);
     }
 }

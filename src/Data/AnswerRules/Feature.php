@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Phones\AnswerRules;
+namespace Didntread\NetSapiens\Data\AnswerRules;
 
 class Feature
 {
@@ -14,5 +14,10 @@ class Feature
     public function isEnabled(): string
     {
         return $this->enabled ? 'yes' : 'no';
+    }
+
+    public static function deserialize(array $data): static
+    {
+        return new static($data['enabled'] === 'yes');
     }
 }
