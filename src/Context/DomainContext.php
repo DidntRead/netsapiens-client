@@ -4,6 +4,7 @@ namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\DomainResource;
+use Didntread\NetSapiens\List\CallQueueList;
 use Didntread\NetSapiens\List\PhoneNumberList;
 use Didntread\NetSapiens\List\TimeFrameList;
 use Didntread\NetSapiens\List\UserList;
@@ -61,5 +62,15 @@ class DomainContext extends ResourceContext
     public function shared_time_frame(string $id): TimeFrameContext
     {
         return new TimeFrameContext($this->client, $this->getId(), null, $id);
+    }
+
+    public function call_queues(): CallQueueList
+    {
+        return new CallQueueList($this->client, $this->getId());
+    }
+
+    public function call_queue(string $id): CallQueueContext
+    {
+        return new CallQueueContext($this->client, $this->getId(), $id);
     }
 }

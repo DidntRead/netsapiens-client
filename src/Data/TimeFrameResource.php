@@ -36,4 +36,13 @@ class TimeFrameResource extends JsonResource
             'timeframe_days_of_week_array' => $properties['timeframe-days-of-week-array'] ?? [],
         ];
     }
+
+    public function __toString(): string
+    {
+        $context = [];
+        foreach ($this->meta as $key => $value) {
+            $context[] = "$key=$value";
+        }
+        return '[TimeFrameResource ' . \implode(' ', $context) . ']';
+    }
 }
