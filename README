@@ -1,0 +1,26 @@
+# NetSapiens PHP API Client for VOIP Resellers
+
+A PHP Composer library for interacting with the NetSapiens API, built specifically for VOIP resellers. This library provides a convenient and easy-to-use interface for managing user accounts, call data, and other features available in the NetSapiens platform.
+
+## Features
+
+- Manage users and their roles (Basic User, Call Center Agent, Site Manager, etc.)
+- Handle VoIP services, including call plans, call queues, conferences, and more
+- Access detailed reporting on call activity and service usage
+- Fully supports the NetSapiens API for VOIP resellers
+- PHP Enum support for user roles and domain settings
+- Easy integration with Laravel, Symfony, or any other PHP framework
+
+## Requirements
+
+- PHP 8.1 or higher
+- Composer
+- NetSapiens Credentials
+
+## Installation
+
+Install the library via Composer:
+
+```bash
+composer require your-vendor/netsapiens-api
+
