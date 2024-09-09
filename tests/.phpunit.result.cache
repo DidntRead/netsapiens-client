@@ -1,0 +1,1 @@
+{"version":1,"defects":{"AuthenticationTest::test_authentication":8},"times":{"AuthenticationTest::test_authentication":0.14,"ClientTest::test_throws_no_username_and_password":0.004,"ClientTest::test_throws_no_username":0}}

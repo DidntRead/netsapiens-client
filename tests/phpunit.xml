@@ -1,0 +1,12 @@
+<phpunit bootstrap="./Bootstrap.php">
+    <testsuites>
+        <testsuite name="Unit Test Suite">
+            <directory>./Unit</directory>
+        </testsuite>
+    </testsuites>
+    <coverage>
+        <include>
+            <directory suffix=".php">../src</directory>
+        </include>
+    </coverage>
+</phpunit>

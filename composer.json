@@ -1,0 +1,27 @@
+{
+    "name": "didntread/netsapiens-client",
+    "description": "Http client for NetSapiens VOIP Solution",
+    "type": "library",
+    "keywords": ["netsapiens", "voip", "api"],
+    "require": {
+        "guzzlehttp/guzzle": "^7",
+        "php": ">=8.1.0",
+        "ext-json": "*",
+        "nesbot/carbon": "^3.0@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11"
+    },
+    "autoload": {
+        "psr-4": {
+            "Didntread\\NetSapiens\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "DidntRead",
+            "email": "kaloyan@shopgenie.io"
+        }
+    ],
+    "minimum-stability": "dev"
+}
