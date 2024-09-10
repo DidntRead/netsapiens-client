@@ -30,8 +30,16 @@ class SubscriptionList extends ResourceList
 
     public function create(EventType $type, string $url, string $domain, array $options = []): SubscriptionResource
     {
+        if (!isset($options['reseller'])) {
+            $options['reseller'] = '~';
+        }
+
+        if (!isset($options['user'])) {
+            $options['user'] = '*';
+        }
+
         $response = $this->client->request('POST', 'v2/subscriptions', [], [
-            'event_type' => $type->value,
+            'model' => $type->value,
             'post-url' => $url,
             'domain' => $domain,
         ] + $options,

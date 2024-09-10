@@ -203,7 +203,7 @@ class Client
             } else {
                 return false;
             }
-        } catch (GuzzleException $e) {
+        } catch (HttpException $e) {
             return false;
         }
     }
