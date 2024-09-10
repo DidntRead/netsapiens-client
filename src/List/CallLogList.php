@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Context\CallLogContext;
 use Didntread\NetSapiens\Data\CallLogResource;
+use Didntread\NetSapiens\Data\CallRecordingResource;
 use Didntread\NetSapiens\Enum\CallLogType;
 
 class CallLogList extends ResourceList
@@ -30,6 +31,21 @@ class CallLogList extends ResourceList
 
         return array_map(function ($item) {
             return new CallLogResource($this->client, $item);
+        }, $data);
+    }
+
+    public function listRecordings(string $call_id): array
+    {
+        $resp = $this->client->request('POST', '', [
+            'object' => 'recording',
+            'action' => 'read',
+            'domain' => $this->meta['domain'],
+            'callid' => $call_id,
+        ]);
+
+        $data = json_decode($resp->getBody()->getContents(), true);
+        return array_map(function ($item) {
+            return new CallRecordingResource($this->client, $item);
         }, $data);
     }
 
