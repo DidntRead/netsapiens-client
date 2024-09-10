@@ -22,5 +22,5 @@ A PHP Composer library for interacting with the NetSapiens API, built specifical
 Install the library via Composer:
 
 ```bash
-composer require your-vendor/netsapiens-api
+composer require didntread/netsapiens-api
 
