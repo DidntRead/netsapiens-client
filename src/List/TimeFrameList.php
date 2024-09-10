@@ -5,6 +5,7 @@ namespace Didntread\NetSapiens\List;
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Context\TimeFrameContext;
 use Didntread\NetSapiens\Data\TimeFrameResource;
+use Didntread\NetSapiens\Enum\TimeFrameType;
 
 class TimeFrameList extends ResourceList
 {
@@ -31,19 +32,19 @@ class TimeFrameList extends ResourceList
         }, $data);
     }
 
-    public function create(string $name, array $time_range_data = [], array $options = []): string
+    public function create(string $name, TimeFrameType $type, array $options = []): string
     {
-        if (!isset($options['time-frame'])) {
-            $options['time-frame'] = $name;
+        if (!isset($options['timeframe-name'])) {
+            $options['timeframe-name'] = $name;
         }
 
-        if (!isset($options['time-range-data'])) {
-            $options['time-range-data'] = $time_range_data;
+        if (!isset($options['timeframe-type'])) {
+            $options['timeframe-type'] = $type->value;
         }
 
         $this->client->request('POST', $this->buildUrl(), [], $options);
 
-        return $options['time-frame'];
+        return $options['timeframe-name'];
     }
 
     public function fetch(string $id): TimeFrameResource
