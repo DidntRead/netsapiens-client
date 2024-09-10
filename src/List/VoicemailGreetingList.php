@@ -25,7 +25,7 @@ class VoicemailGreetingList extends ResourceList
         }, $data);
     }
 
-    public function createTTS(string $script, array $options): void
+    public function createTTS(string $script, array $options = []): void
     {
         if (!isset($options['script'])) {
             $options['script'] = $script;
@@ -36,7 +36,7 @@ class VoicemailGreetingList extends ResourceList
         ]);
     }
 
-    public function createFile($file, array $options): void
+    public function createFile($file, array $options = []): void
     {
         if (!is_resource($file) || get_resource_type($file) !== 'stream') {
             throw new \InvalidArgumentException('The file must be a resource.');

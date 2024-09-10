@@ -24,7 +24,7 @@ class SiteList extends ResourceList
         }, $data);
     }
 
-    public function create(string $site, array $options): void
+    public function create(string $site, array $options = []): void
     {
         if (!isset($options['site'])) {
             $options['site'] = $site;

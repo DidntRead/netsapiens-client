@@ -27,7 +27,7 @@ class TimeFrameList extends ResourceList
         }, $data);
     }
 
-    public function create(array $options): void
+    public function create(array $options = []): void
     {
         $this->client->request('POST', $this->buildUrl(), [
             'json' => $options,

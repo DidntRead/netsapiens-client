@@ -24,7 +24,7 @@ class SubscriptionList extends ResourceList
         }, $data);
     }
 
-    public function create(EventType $type, string $url, string $domain, array $options): SubscriptionResource
+    public function create(EventType $type, string $url, string $domain, array $options = []): SubscriptionResource
     {
         $response = $this->client->request('POST', 'v2/subscriptions', [
             'json' => [

@@ -25,7 +25,7 @@ class AgentList extends ResourceList
         }, $data);
     }
 
-    public function create(string $agent_id, array $options): void
+    public function create(string $agent_id, array $options = []): void
     {
         if (!isset($options['callqueue-agent-id'])) {
             $options['callqueue-agent-id'] = $agent_id;
