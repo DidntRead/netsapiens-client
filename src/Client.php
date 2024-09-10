@@ -190,6 +190,11 @@ class Client
             ]);
 
             $data = json_decode($response->getBody()->getContents(), true);
+            $api_version = $data['apiversion'] ?? null;
+
+            if ($api_version && !str_starts_with($api_version, '44.1')) {
+                throw new ConfigurationException('Unsupported API version: ' . $api_version);
+            }
 
             if (isset($data['access_token'])) {
                 $this->access_token = $data['access_token'];
