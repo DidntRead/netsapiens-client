@@ -41,6 +41,8 @@ class DomainList extends ResourceList
             $options['domain'] = $domain;
         }
 
+        $options['reseller'] = '~';
+
         $this->client->request('POST', 'v2/domains', [], $options);
 
         return $options['domain'];
