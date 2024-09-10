@@ -31,8 +31,16 @@ class TimeFrameList extends ResourceList
         }, $data);
     }
 
-    public function create(array $options = []): string
+    public function create(string $name, array $time_range_data = [], array $options = []): string
     {
+        if (!isset($options['time-frame'])) {
+            $options['time-frame'] = $name;
+        }
+
+        if (!isset($options['time-range-data'])) {
+            $options['time-range-data'] = $time_range_data;
+        }
+
         $this->client->request('POST', $this->buildUrl(), [
             'json' => $options,
         ]);
