@@ -25,11 +25,11 @@ class AnswerRulesContext extends ResourceContext
 
     public function update(AnswerRules $rules): void
     {
-        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules{$this->meta['id']}", [], $rules->toJsonArray());
+        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules/{$this->meta['id']}", [], $rules->toJsonArray());
     }
 
     public function delete(): void
     {
-        $this->client->request('DELETE', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules{$this->meta['id']}");
+        $this->client->request('DELETE', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules/{$this->meta['id']}");
     }
 }
