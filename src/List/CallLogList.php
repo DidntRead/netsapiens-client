@@ -42,7 +42,8 @@ class CallLogList extends ResourceList
     }
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * Retrieve a list of call recordings.
+     * @return array<CallRecordingResource>
      */
     public function listRecordings(string $call_id): array
     {
