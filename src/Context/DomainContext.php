@@ -41,7 +41,7 @@ class DomainContext extends ResourceContext
         return new UserList($this->client, $this->getId());
     }
 
-    public function user(int $extension): UserContext
+    public function user(string $extension): UserContext
     {
         return new UserContext($this->client, $this->getId(), $extension);
     }
