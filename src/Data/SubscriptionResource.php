@@ -47,7 +47,7 @@ class SubscriptionResource extends JsonResource
             'domain' => $parameters['domain'],
             'user' => $parameters['user'],
             'created_at' => Carbon::parse($parameters['subscription-creation-datetime']),
-            'expires_at' => Carbon::parse($parameters['subscription-expiration-datetime']),
+            'expires_at' => Carbon::parse($parameters['subscription-expires-datetime']),
             'preferred_server' => $parameters['preferred-server'],
             'current_active_server' => $parameters['current-active-server'],
             'status' => SubscriptionStatus::from($parameters['status']),
