@@ -24,9 +24,7 @@ class CallQueueContext extends ResourceContext
 
     public function update(array $options): void
     {
-        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/callqueues/{$this->meta['id']}", [
-            'json' => $options,
-        ]);
+        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/callqueues/{$this->meta['id']}", [], $options);
     }
 
     public function delete(): void

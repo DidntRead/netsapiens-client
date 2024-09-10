@@ -26,9 +26,7 @@ class TimeFrameContext extends ResourceContext
 
     public function update(array $options): void
     {
-        $this->client->request('PUT', $this->buildUrl(), [
-            'json' => $options,
-        ]);
+        $this->client->request('PUT', $this->buildUrl(), [], $options);
     }
 
     public function delete(): void

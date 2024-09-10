@@ -16,7 +16,7 @@ class CallLogContext extends ResourceContext
 
     public function fetch(): CallLogResource
     {
-        $response = $this->client->request('POST', '/', [
+        $response = $this->client->request('POST', '/', [], [
             'object' => 'cdr2',
             'action' => 'read',
             'id' => $this->getId(),

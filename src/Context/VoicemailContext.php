@@ -35,8 +35,8 @@ class VoicemailContext extends ResourceContext
 
     public function forward(int $extension): void
     {
-        $this->client->request('PATCH', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/voicemails/{$this->meta['folder']}/{$this->meta['id']}/forward", [
-            'json' => [
+        $this->client->request('PATCH', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/voicemails/{$this->meta['folder']}/{$this->meta['id']}/forward", [], [
+            [
                 'voicemail-forward-new-destination' => $extension,
             ],
         ]);

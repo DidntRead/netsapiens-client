@@ -34,9 +34,7 @@ class SiteList extends ResourceList
             $options['site'] = $site;
         }
 
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/sites", [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/sites", [], $options);
 
         return $options['site'];
     }

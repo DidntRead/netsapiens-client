@@ -28,9 +28,7 @@ class VoicemailGreetingContext extends ResourceContext
             $options['script'] = $script;
         }
 
-        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings/{$this->meta['id']}", [
-            'json' => $options,
-        ]);
+        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings/{$this->meta['id']}", [], $options);
     }
 
     public function updateFile($file, array $options): void
@@ -54,9 +52,7 @@ class VoicemailGreetingContext extends ResourceContext
             ];
         }
 
-        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings/{$this->meta['id']}", [
-            'multipart' => $multipart,
-        ]);
+        $this->client->multipartRequest('PUT', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings/{$this->meta['id']}", [], $multipart);
     }
 
     public function delete(): void

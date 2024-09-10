@@ -22,7 +22,7 @@ class SubscriptionContext extends ResourceContext
 
     public function update(array $options): void
     {
-        $this->client->request('PUT', "v2/subscriptions/{$this->id}", $options);
+        $this->client->request('PUT', "v2/subscriptions/{$this->id}", [], $options);
     }
 
     public function delete(): void

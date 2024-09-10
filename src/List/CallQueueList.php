@@ -43,9 +43,7 @@ class CallQueueList extends ResourceList
             $options['description'] = $description;
         }
 
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/callqueues", [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/callqueues", [], $options);
 
         return $options['callqueue'];
     }

@@ -41,9 +41,7 @@ class DomainList extends ResourceList
             $options['domain'] = $domain;
         }
 
-        $this->client->request('POST', 'v2/domains', [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', 'v2/domains', [], $options);
 
         return $options['domain'];
     }

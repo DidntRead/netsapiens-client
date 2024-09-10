@@ -41,9 +41,7 @@ class TimeFrameList extends ResourceList
             $options['time-range-data'] = $time_range_data;
         }
 
-        $this->client->request('POST', $this->buildUrl(), [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', $this->buildUrl(), [], $options);
 
         return $options['time-frame'];
     }

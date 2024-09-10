@@ -32,9 +32,7 @@ class AnswerRulesList extends ResourceList
 
     public function create(AnswerRules $rules): string
     {
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules", [
-            'json' => $rules->toJsonArray(),
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules", [], $rules->toJsonArray());
 
         return $rules->getTimeFrame();
     }
@@ -44,9 +42,7 @@ class AnswerRulesList extends ResourceList
         $time_frames = array_map(function ($id) {
             return ['time-frame' => $id];
         }, $ids);
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules/reorder", [
-            'json' => $time_frames,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules/reorder", [], $time_frames);
     }
 
     public function fetch(string $id): AnswerRulesResource

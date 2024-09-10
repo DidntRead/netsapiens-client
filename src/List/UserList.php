@@ -61,9 +61,7 @@ class UserList extends ResourceList
             $options['user-scope'] = $scope->value;
         }
 
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users", [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users", [], $options);
 
         return $options['user'];
     }

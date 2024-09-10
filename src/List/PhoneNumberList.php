@@ -34,9 +34,7 @@ class PhoneNumberList extends ResourceList
             $options['phonenumber'] = $phone_number;
         }
 
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/phonenumbers", [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/phonenumbers", [], $options);
 
         return $options['phonenumber'];
     }

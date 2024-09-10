@@ -84,6 +84,32 @@ class Client
         ]);
     }
 
+    /**
+     * Sends a multipart request to the NetSapiens API
+     * @param  string  $method  - HTTP method to use
+     * @param  string  $uri  - URI to send the request to
+     * @param  array  $params  - Query parameters to send with the request
+     * @param  array  $multipart  - Multipart form data to send with the request
+     * @param  array  $headers  - Headers to send with the request
+     * @throws GuzzleException
+     */
+    public function multipartRequest(string $method, string $uri, array $params = [], array $multipart = [], array $headers = []): ResponseInterface
+    {
+        if (!\array_key_exists('Accept', $headers)) {
+            $headers['Accept'] = 'application/json';
+        }
+
+        if (!\array_key_exists('Authorization', $headers) && $this->access_token) {
+            $headers['Authorization'] = 'Bearer ' . $this->access_token;
+        }
+
+        return $this->getClient()->request($method, $uri, [
+            'query' => $params,
+            'multipart' => $multipart,
+            'headers' => $headers,
+        ]);
+    }
+
     /***
      * Authenticates with the NetSapiens API
      * @return bool True if authentication was successful, false otherwise

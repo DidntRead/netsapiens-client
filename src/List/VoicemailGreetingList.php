@@ -35,9 +35,7 @@ class VoicemailGreetingList extends ResourceList
             $options['script'] = $script;
         }
 
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings", [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings", [], $options);
     }
 
     public function createFile($file, array $options = []): void
@@ -61,9 +59,7 @@ class VoicemailGreetingList extends ResourceList
             ];
         }
 
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings", [
-            'multipart' => $multipart,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings", [], $multipart);
     }
 
     public function fetch($id): VoicemailGreetingResource
