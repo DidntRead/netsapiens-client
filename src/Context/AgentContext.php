@@ -16,21 +16,19 @@ class AgentContext extends ResourceContext
 
     public function fetch(): AgentResource
     {
-        $response = $this->client->get("domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents/{$this->getId()}");
-        $data = $response->json();
+        $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents/{$this->getId()}");
+        $data = json_decode($response->getBody()->getContents(), true);
 
         return new AgentResource($this->client, $data);
     }
 
     public function update(array $options): void
     {
-        $this->client->put("domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents/{$this->getId()}", [
-            'json' => $options,
-        ]);
+        $this->client->request('PUT', "v2/domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents/{$this->getId()}", [], $options);
     }
 
     public function delete(): void
     {
-        $this->client->delete("domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents/{$this->getId()}");
+        $this->client->request('DELETE', "v2/domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents/{$this->getId()}");
     }
 }

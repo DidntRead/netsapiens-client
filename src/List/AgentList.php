@@ -21,8 +21,8 @@ class AgentList extends ResourceList
      */
     public function list(): array
     {
-        $response = $this->client->get("domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents");
-        $data = $response->json();
+        $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents");
+        $data = json_decode($response->getBody()->getContents(), true);
 
         return array_map(function ($item) {
             return new AgentResource($this->client, $item);
@@ -39,9 +39,7 @@ class AgentList extends ResourceList
             $options['callqueue'] = $this->meta['queue'];
         }
 
-        $this->client->post("domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents", [
-            'json' => $options,
-        ]);
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents", [], $options);
 
         return $options['callqueue-agent-id'];
     }
