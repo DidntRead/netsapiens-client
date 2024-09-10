@@ -15,14 +15,25 @@ class UserList extends ResourceList
         $this->meta['domain'] = $domain;
     }
 
-    public function list(): array
+    public function list(?string $site = null, bool $show_system = false): array
     {
-        $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/users");
+        $query = [];
+
+        if ($site) {
+            $query['site'] = $site;
+        }
+
+        $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/users", $query);
         $data = json_decode($response->getBody(), true);
 
-        return array_map(function ($item) {
-            return new UserResource($this->client, $item);
-        }, $data);
+        return array_reduce($data, function ($carry, $item) use ($show_system) {
+            if (str_starts_with($item->service_code, 'system') && !$show_system) {
+                return $carry;
+            }
+
+            $carry[] = new UserResource($this->client, $item);
+            return $carry;
+        }, []);
     }
 
     public function create(int $extension, string $first_name, string $last_name, UserScope $scope, array $options = [], bool $return = false): ?UserResource
