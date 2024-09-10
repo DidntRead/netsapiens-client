@@ -6,6 +6,7 @@ use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\UserResource;
 use Didntread\NetSapiens\List\AnswerRulesList;
 use Didntread\NetSapiens\List\TimeFrameList;
+use Didntread\NetSapiens\List\VoicemailFolderList;
 use Didntread\NetSapiens\List\VoicemailGreetingList;
 
 class UserContext extends ResourceContext
@@ -62,5 +63,10 @@ class UserContext extends ResourceContext
     public function greeting(int $id): VoicemailGreetingContext
     {
         return new VoicemailGreetingContext($this->client, $this->meta['domain'], $this->meta['id'], $id);
+    }
+
+    public function voicemail(): VoicemailFolderList
+    {
+        return new VoicemailFolderList($this->client, $this->meta['domain'], $this->meta['id']);
     }
 }
