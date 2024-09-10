@@ -75,6 +75,7 @@ class CallQueueResource extends JsonResource
         foreach ($this->meta as $key => $value) {
             $context[] = "$key=$value";
         }
+
         return '[CallQueueResource ' . \implode(' ', $context) . ']';
     }
 }

@@ -3,7 +3,6 @@
 namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
-use Didntread\NetSapiens\Data\SubscriptionResource;
 use Didntread\NetSapiens\Data\VoicemailResource;
 
 class VoicemailContext extends ResourceContext

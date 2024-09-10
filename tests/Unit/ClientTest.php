@@ -1,6 +1,5 @@
 <?php
 
-
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Exceptions\ConfigurationException;
 use PHPUnit\Framework\TestCase;

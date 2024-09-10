@@ -2,9 +2,9 @@
 
 namespace Didntread\NetSapiens\List;
 
-use Didntread\NetSapiens\Data\AnswerRules\AnswerRules;
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Context\AnswerRulesContext;
+use Didntread\NetSapiens\Data\AnswerRules\AnswerRules;
 use Didntread\NetSapiens\Data\AnswerRules\AnswerRulesResource;
 
 class AnswerRulesList extends ResourceList

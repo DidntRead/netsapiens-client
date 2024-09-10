@@ -136,6 +136,7 @@ class UserResource extends JsonResource
         foreach ($this->meta as $key => $value) {
             $context[] = "$key=$value";
         }
+
         return '[UserResource ' . \implode(' ', $context) . ']';
     }
 }

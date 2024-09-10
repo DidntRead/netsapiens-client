@@ -44,6 +44,7 @@ class CallLogList extends ResourceList
         ]);
 
         $data = json_decode($resp->getBody()->getContents(), true);
+
         return array_map(function ($item) {
             return new CallRecordingResource($this->client, $item);
         }, $data);

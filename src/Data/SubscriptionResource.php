@@ -71,6 +71,7 @@ class SubscriptionResource extends JsonResource
         foreach ($this->meta as $key => $value) {
             $context[] = "$key=$value";
         }
+
         return '[SubscriptionResource ' . \implode(' ', $context) . ']';
     }
 }

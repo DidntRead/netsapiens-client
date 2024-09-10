@@ -3,7 +3,6 @@
 namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
-use Didntread\NetSapiens\Context\ResourceContext;
 use Didntread\NetSapiens\Data\PhoneNumberResource;
 
 class PhoneNumberContext extends ResourceContext

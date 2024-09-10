@@ -2,8 +2,8 @@
 
 namespace Didntread\NetSapiens\Context;
 
-use Didntread\NetSapiens\Data\AnswerRules\AnswerRules;
 use Didntread\NetSapiens\Client;
+use Didntread\NetSapiens\Data\AnswerRules\AnswerRules;
 use Didntread\NetSapiens\Data\AnswerRules\AnswerRulesResource;
 
 class AnswerRulesContext extends ResourceContext
@@ -19,6 +19,7 @@ class AnswerRulesContext extends ResourceContext
     {
         $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules/{$this->meta['id']}");
         $data = json_decode($response->getBody(), true);
+
         return new AnswerRulesResource($this->client, $data);
     }
 
