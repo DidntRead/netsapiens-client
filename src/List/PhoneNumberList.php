@@ -14,6 +14,10 @@ class PhoneNumberList extends ResourceList
         $this->meta['domain'] = $domain;
     }
 
+    /**
+     * Retrieve a list of phone numbers.
+     * @return array<PhoneNumberResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/phonenumbers");
@@ -24,15 +28,17 @@ class PhoneNumberList extends ResourceList
         }, $data);
     }
 
-    public function create(string $phone_number, array $options = []): void
+    public function create(string $phone_number, array $options = []): string
     {
         if (!isset($options['phonenumber'])) {
             $options['phonenumber'] = $phone_number;
         }
 
-        $response = $this->client->request('POST', "v2/domains/{$this->meta['domain']}/phonenumbers", [
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/phonenumbers", [
             'json' => $options,
         ]);
+
+        return $options['phonenumber'];
     }
 
     public function fetch($id): PhoneNumberResource

@@ -16,6 +16,10 @@ class VoicemailList extends ResourceList
         $this->meta['folder'] = $folder;
     }
 
+    /**
+     * Retrieve a list of voicemails.
+     * @return array<VoicemailResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/voicemails/{$this->meta['folder']}");

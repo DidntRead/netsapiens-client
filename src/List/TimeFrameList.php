@@ -17,6 +17,10 @@ class TimeFrameList extends ResourceList
         }
     }
 
+    /**
+     * Retrieve a list of time frames.
+     * @return array<TimeFrameResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', $this->buildUrl());
@@ -27,11 +31,13 @@ class TimeFrameList extends ResourceList
         }, $data);
     }
 
-    public function create(array $options = []): void
+    public function create(array $options = []): string
     {
         $this->client->request('POST', $this->buildUrl(), [
             'json' => $options,
         ]);
+
+        return $options['time-frame'];
     }
 
     public function fetch(string $id): TimeFrameResource

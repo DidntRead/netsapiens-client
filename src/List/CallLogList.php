@@ -17,6 +17,13 @@ class CallLogList extends ResourceList
         $this->meta['domain'] = $domain;
     }
 
+    /**
+     * Retrieve a list of call logs.
+     * @param  Carbon  $start  - Start date
+     * @param  Carbon  $end  - End date
+     * @param  CallLogType|null  $type  - Call type
+     * @return array<CallLogResource>
+     */
     public function list(Carbon $start, Carbon $end, ?CallLogType $type): array
     {
         $query = [
@@ -34,6 +41,9 @@ class CallLogList extends ResourceList
         }, $data);
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function listRecordings(string $call_id): array
     {
         $resp = $this->client->request('POST', '', [

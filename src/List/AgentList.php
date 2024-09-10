@@ -15,6 +15,10 @@ class AgentList extends ResourceList
         $this->meta['queue'] = $queue;
     }
 
+    /**
+     * Retrieve a list of agents in a call queue.
+     * @return array<AgentResource>
+     */
     public function list(): array
     {
         $response = $this->client->get("domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents");
@@ -25,7 +29,7 @@ class AgentList extends ResourceList
         }, $data);
     }
 
-    public function create(string $agent_id, array $options = []): void
+    public function create(string $agent_id, array $options = []): string
     {
         if (!isset($options['callqueue-agent-id'])) {
             $options['callqueue-agent-id'] = $agent_id;
@@ -38,6 +42,8 @@ class AgentList extends ResourceList
         $this->client->post("domains/{$this->meta['domain']}/callqueues/{$this->meta['queue']}/agents", [
             'json' => $options,
         ]);
+
+        return $options['callqueue-agent-id'];
     }
 
     public function fetch($id): AgentResource

@@ -14,6 +14,10 @@ class SiteList extends ResourceList
         $this->meta['domain'] = $domain;
     }
 
+    /**
+     * Retrieve a list of sites.
+     * @return array<SiteResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/sites");
@@ -24,7 +28,7 @@ class SiteList extends ResourceList
         }, $data);
     }
 
-    public function create(string $site, array $options = []): void
+    public function create(string $site, array $options = []): string
     {
         if (!isset($options['site'])) {
             $options['site'] = $site;
@@ -33,6 +37,8 @@ class SiteList extends ResourceList
         $this->client->request('POST', "v2/domains/{$this->meta['domain']}/sites", [
             'json' => $options,
         ]);
+
+        return $options['site'];
     }
 
     public function fetch(string $id): SiteResource

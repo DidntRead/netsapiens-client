@@ -13,6 +13,10 @@ class DomainList extends ResourceList
         parent::__construct($client);
     }
 
+    /**
+     * Retrieve a list of domains.
+     * @return array<DomainResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', 'v2/domains');
@@ -31,26 +35,17 @@ class DomainList extends ResourceList
         return $data['total'];
     }
 
-    public function create(string $domain, array $options = [], bool $return = false): ?DomainResource
+    public function create(string $domain, array $options = []): string
     {
         if (!isset($options['domain'])) {
             $options['domain'] = $domain;
         }
 
-        if ($return) {
-            $options['synchronous'] = 'yes';
-        }
-
-        $response = $this->client->request('POST', 'v2/domains', [
+        $this->client->request('POST', 'v2/domains', [
             'json' => $options,
         ]);
-        if ($return) {
-            $data = json_decode($response->getBody(), true);
 
-            return new DomainResource($this->client, $data);
-        } else {
-            return null;
-        }
+        return $options['domain'];
     }
 
     public function fetch(string $id): DomainResource

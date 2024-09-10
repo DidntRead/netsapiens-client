@@ -16,6 +16,10 @@ class AnswerRulesList extends ResourceList
         $this->meta['user'] = $user;
     }
 
+    /**
+     * Retrieve a list of answer rules for a user.
+     * @return array<AnswerRulesResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules");
@@ -26,14 +30,13 @@ class AnswerRulesList extends ResourceList
         }, $data);
     }
 
-    public function create(AnswerRules $rules): AnswerRulesResource
+    public function create(AnswerRules $rules): string
     {
-        $response = $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules", [
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules", [
             'json' => $rules->toJsonArray(),
         ]);
-        $data = json_decode($response->getBody(), true);
 
-        return new AnswerRulesResource($this->client, $data);
+        return $rules->getTimeFrame();
     }
 
     public function reorder(array $ids): void

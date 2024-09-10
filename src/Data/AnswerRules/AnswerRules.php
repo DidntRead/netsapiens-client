@@ -288,4 +288,9 @@ class AnswerRules
     {
         return json_encode($this->toJsonArray());
     }
+
+    public function getTimeFrame(): string
+    {
+        return $this->timeFrame;
+    }
 }

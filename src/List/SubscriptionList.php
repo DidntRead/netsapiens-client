@@ -14,6 +14,10 @@ class SubscriptionList extends ResourceList
         parent::__construct($client);
     }
 
+    /**
+     * Retrieve a list of event subscriptions.
+     * @return array<SubscriptionResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', 'v2/subscriptions');

@@ -15,6 +15,10 @@ class VoicemailGreetingList extends ResourceList
         $this->meta['user'] = $user;
     }
 
+    /**
+     * Retrieve a list of voicemail greetings.
+     * @return array<VoicemailGreetingResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings");

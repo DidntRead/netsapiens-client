@@ -15,6 +15,10 @@ class CallQueueList extends ResourceList
         $this->meta['domain'] = $domain;
     }
 
+    /**
+     * Retrieve a list of call queues.
+     * @return array<CallQueueResource>
+     */
     public function list(): array
     {
         $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/callqueues");
@@ -25,10 +29,10 @@ class CallQueueList extends ResourceList
         }, $data);
     }
 
-    public function create(int $extension, CallQueueType $type, string $description, array $options = []): void
+    public function create(int $extension, CallQueueType $type, string $description, array $options = []): string
     {
-        if (!isset($options['extension'])) {
-            $options['extension'] = $extension;
+        if (!isset($options['callqueue'])) {
+            $options['callqueue'] = $extension;
         }
 
         if (!isset($options['type'])) {
@@ -42,6 +46,8 @@ class CallQueueList extends ResourceList
         $this->client->request('POST', "v2/domains/{$this->meta['domain']}/callqueues", [
             'json' => $options,
         ]);
+
+        return $options['callqueue'];
     }
 
     public function fetch(string $id): CallQueueResource

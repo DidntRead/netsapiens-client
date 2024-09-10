@@ -15,6 +15,12 @@ class UserList extends ResourceList
         $this->meta['domain'] = $domain;
     }
 
+    /**
+     * Retrieve a list of users.
+     * @param  string|null  $site  - filter by user site
+     * @param  bool  $show_system  - show system users
+     * @return array<UserResource>
+     */
     public function list(?string $site = null, bool $show_system = false): array
     {
         $query = [];
@@ -32,16 +38,13 @@ class UserList extends ResourceList
             }
 
             $carry[] = new UserResource($this->client, $item);
+
             return $carry;
         }, []);
     }
 
-    public function create(int $extension, string $first_name, string $last_name, UserScope $scope, array $options = [], bool $return = false): ?UserResource
+    public function create(int $extension, string $first_name, string $last_name, UserScope $scope, array $options = []): string
     {
-        if ($return) {
-            $options['synchronous'] = 'yes';
-        }
-
         if (!isset($options['extension'])) {
             $options['user'] = $extension;
         }
@@ -58,17 +61,11 @@ class UserList extends ResourceList
             $options['user-scope'] = $scope->value;
         }
 
-        $response = $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users", [
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users", [
             'json' => $options,
         ]);
 
-        if ($return) {
-            $data = json_decode($response->getBody(), true);
-
-            return new UserResource($this->client, $data);
-        } else {
-            return null;
-        }
+        return $options['user'];
     }
 
     public function fetch($id): UserResource
