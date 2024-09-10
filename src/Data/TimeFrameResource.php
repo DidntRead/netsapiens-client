@@ -6,12 +6,12 @@ use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Enum\TimeFrameType;
 
 /**
- * @type string $user                        The user associated with the properties.
- * @type string $domain                      The domain associated with the properties.
- * @type int $timeframe-id                   The ID of the timeframe.
- * @type string $timeframe-name              The name of the timeframe.
- * @type string $timeframe-type              The type of the timeframe, converted to a TimeFrameType instance.
- * @type array $timeframe-days-of-week-array An array of days of the week for the timeframe (optional, defaults to an empty array if not provided).
+ * @property string $user The user associated with the properties.
+ * @property string $domain The domain associated with the properties.
+ * @property int $timeframe_id The ID of the timeframe.
+ * @property string $timeframe_name The name of the timeframe.
+ * @property string $timeframe_type The type of the timeframe, converted to a TimeFrameType instance.
+ * @property array $timeframe_days-of-week-array An array of days of the week for the timeframe (optional, defaults to an empty array if not provided).
  */
 class TimeFrameResource extends JsonResource
 {
