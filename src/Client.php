@@ -17,6 +17,7 @@ class Client
     const ENV_NETSAPIENS_PASSWORD = 'NETSAPIENS_PASSWORD';
 
     const ENV_NETSAPIENS_HOST = 'NETSAPIENS_HOST';
+    const ENV_NETSAPIENS_DEBUG = 'NETSAPIENS_DEBUG';
 
     protected \GuzzleHttp\Client $client;
 
@@ -27,6 +28,7 @@ class Client
     protected string $username;
 
     protected string $password;
+    protected bool $debug;
 
     protected ?string $access_token;
 
@@ -37,12 +39,13 @@ class Client
      * @param $baseUri - Base URI for the NetSapiens API
      * @throws ConfigurationException If valid authentication credentials are not provided
      */
-    public function __construct(?string $client_id = null, ?string $client_secret = null, ?string $username = null, ?string $password = null, ?string $baseUri = null)
+    public function __construct(?string $client_id = null, ?string $client_secret = null, ?string $username = null, ?string $password = null, ?string $baseUri = null, bool $debug = false)
     {
         $this->client_id = $client_id ?? getenv(self::ENV_NETSAPIENS_CLIENT_ID);
         $this->client_secret = $client_secret ?? getenv(self::ENV_NETSAPIENS_CLIENT_SECRET);
         $this->username = $username ?? getenv(self::ENV_NETSAPIENS_USERNAME);
         $this->password = $password ?? getenv(self::ENV_NETSAPIENS_PASSWORD);
+        $this->debug = $debug || getenv(self::ENV_NETSAPIENS_DEBUG) === 'true';
         $this->access_token = null;
 
         if (!$this->client_id || !$this->client_secret || !$this->username || !$this->password) {
@@ -77,11 +80,33 @@ class Client
             $headers['Authorization'] = 'Bearer ' . $this->access_token;
         }
 
-        return $this->getClient()->request($method, $uri, [
+        if ($this->debug) {
+            error_log('NetSapiens Request:');
+            error_log('Method: ' . $method);
+            error_log('URI: ' . $uri);
+            error_log('Params: ' . json_encode($params));
+            error_log('Data: ' . json_encode($data));
+            error_log('Headers: ' . json_encode($headers));
+        }
+
+        $response = $this->getClient()->request($method, $uri, [
             'query' => $params,
             'json' => $data,
             'headers' => $headers,
         ]);
+
+        if ($this->debug) {
+            // Dump response information to system log
+            error_log('Response:');
+            error_log('Status Code: ' . $response->getStatusCode());
+            error_log('Response Body: ' . $response->getBody());
+            error_log('Response Headers: ' . json_encode($response->getHeaders()));
+
+            // Rewind response body
+            $response->getBody()->rewind();
+        }
+
+        return $response;
     }
 
     /**
@@ -103,11 +128,33 @@ class Client
             $headers['Authorization'] = 'Bearer ' . $this->access_token;
         }
 
-        return $this->getClient()->request($method, $uri, [
+        if ($this->debug) {
+            error_log('NetSapiens Request:');
+            error_log('Method: ' . $method);
+            error_log('URI: ' . $uri);
+            error_log('Params: ' . json_encode($params));
+            error_log('Data: ' . json_encode($multipart));
+            error_log('Headers: ' . json_encode($headers));
+        }
+
+        $response = $this->getClient()->request($method, $uri, [
             'query' => $params,
             'multipart' => $multipart,
             'headers' => $headers,
         ]);
+
+        if ($this->debug) {
+            // Dump response information to system log
+            error_log('Response:');
+            error_log('Status Code: ' . $response->getStatusCode());
+            error_log('Response Body: ' . $response->getBody());
+            error_log('Response Headers: ' . json_encode($response->getHeaders()));
+
+            // Rewind response body
+            $response->getBody()->rewind();
+        }
+
+        return $response;
     }
 
     /***
