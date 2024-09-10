@@ -19,7 +19,7 @@ class TimeFrameResource extends JsonResource
     {
         parent::__construct($client);
         $this->meta = [
-            'id' => $properties['timeframe-name'],
+            'id' => $properties['timeframe-id'],
             'domain' => $properties['domain'],
         ];
 
