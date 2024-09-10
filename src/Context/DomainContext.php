@@ -7,6 +7,7 @@ use Didntread\NetSapiens\Data\DomainResource;
 use Didntread\NetSapiens\List\CallLogList;
 use Didntread\NetSapiens\List\CallQueueList;
 use Didntread\NetSapiens\List\PhoneNumberList;
+use Didntread\NetSapiens\List\SiteList;
 use Didntread\NetSapiens\List\TimeFrameList;
 use Didntread\NetSapiens\List\UserList;
 
@@ -83,5 +84,15 @@ class DomainContext extends ResourceContext
     public function call_log(string $id): CallLogContext
     {
         return new CallLogContext($this->client, $this->getId(), $id);
+    }
+
+    public function sites(): SiteList
+    {
+        return new SiteList($this->client, $this->getId());
+    }
+
+    public function site(string $id): SiteContext
+    {
+        return new SiteContext($this->client, $this->getId(), $id);
     }
 }
