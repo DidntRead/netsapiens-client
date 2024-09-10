@@ -3,6 +3,7 @@
 namespace Didntread\NetSapiens;
 
 use Didntread\NetSapiens\Exceptions\ConfigurationException;
+use Didntread\NetSapiens\Exceptions\HttpException;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -61,14 +62,26 @@ class Client
         }
     }
 
+    private function dumpResponseInfo(ResponseInterface $response): void
+    {
+        // Dump response information to system log
+        error_log('Response:');
+        error_log('Status Code: ' . $response->getStatusCode());
+        error_log('Response Body: ' . $response->getBody());
+        error_log('Response Headers: ' . json_encode($response->getHeaders()));
+
+        // Rewind response body
+        $response->getBody()->rewind();
+    }
+
     /**
      * Sends a request to the NetSapiens API
-     * @param  string  $method  - HTTP method to use
-     * @param  string  $uri  - URI to send the request to
-     * @param  array  $params  - Query parameters to send with the request
-     * @param  array  $data  - JSON data to send with the request
-     * @param  array  $headers  - Headers to send with the request
-     * @throws GuzzleException
+     * @param string $method - HTTP method to use
+     * @param string $uri - URI to send the request to
+     * @param array $params - Query parameters to send with the request
+     * @param array $data - JSON data to send with the request
+     * @param array $headers - Headers to send with the request
+     * @throws HttpException
      */
     public function request(string $method, string $uri, array $params = [], array $data = [], array $headers = []): ResponseInterface
     {
@@ -89,24 +102,26 @@ class Client
             error_log('Headers: ' . json_encode($headers));
         }
 
-        $response = $this->getClient()->request($method, $uri, [
-            'query' => $params,
-            'json' => $data,
-            'headers' => $headers,
-        ]);
+        try {
+            $response = $this->getClient()->request($method, $uri, [
+                'query' => $params,
+                'json' => $data,
+                'headers' => $headers,
+            ]);
 
-        if ($this->debug) {
-            // Dump response information to system log
-            error_log('Response:');
-            error_log('Status Code: ' . $response->getStatusCode());
-            error_log('Response Body: ' . $response->getBody());
-            error_log('Response Headers: ' . json_encode($response->getHeaders()));
+            if ($this->debug) {
+                $this->dumpResponseInfo($response);
+            }
 
-            // Rewind response body
-            $response->getBody()->rewind();
+            return $response;
+        } catch (GuzzleException $e) {
+            if ($this->debug) {
+                $this->dumpResponseInfo($e->getResponse());
+
+            }
+
+            throw new HttpException($method, $uri, $data, $e->getCode());
         }
-
-        return $response;
     }
 
     /**
@@ -137,24 +152,26 @@ class Client
             error_log('Headers: ' . json_encode($headers));
         }
 
-        $response = $this->getClient()->request($method, $uri, [
-            'query' => $params,
-            'multipart' => $multipart,
-            'headers' => $headers,
-        ]);
+        try {
+            $response = $this->getClient()->request($method, $uri, [
+                'query' => $params,
+                'multipart' => $multipart,
+                'headers' => $headers,
+            ]);
 
-        if ($this->debug) {
-            // Dump response information to system log
-            error_log('Response:');
-            error_log('Status Code: ' . $response->getStatusCode());
-            error_log('Response Body: ' . $response->getBody());
-            error_log('Response Headers: ' . json_encode($response->getHeaders()));
+            if ($this->debug) {
+                $this->dumpResponseInfo($response);
+            }
 
-            // Rewind response body
-            $response->getBody()->rewind();
+            return $response;
+        } catch (GuzzleException $e) {
+            if ($this->debug) {
+                $this->dumpResponseInfo($e->getResponse());
+
+            }
+
+            throw new HttpException($method, $uri, $multipart, $e->getCode());
         }
-
-        return $response;
     }
 
     /***
