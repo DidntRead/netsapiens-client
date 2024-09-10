@@ -4,6 +4,7 @@ namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\DomainResource;
+use Didntread\NetSapiens\List\CallLogList;
 use Didntread\NetSapiens\List\CallQueueList;
 use Didntread\NetSapiens\List\PhoneNumberList;
 use Didntread\NetSapiens\List\TimeFrameList;
@@ -72,5 +73,15 @@ class DomainContext extends ResourceContext
     public function call_queue(string $id): CallQueueContext
     {
         return new CallQueueContext($this->client, $this->getId(), $id);
+    }
+
+    public function call_logs(): CallLogList
+    {
+        return new CallLogList($this->client, $this->getId());
+    }
+
+    public function call_log(string $id): CallLogContext
+    {
+        return new CallLogContext($this->client, $this->getId(), $id);
     }
 }
