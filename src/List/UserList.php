@@ -33,7 +33,7 @@ class UserList extends ResourceList
         $data = json_decode($response->getBody(), true);
 
         return array_reduce($data, function ($carry, $item) use ($show_system) {
-            if (str_starts_with($item->service_code, 'system') && !$show_system) {
+            if (str_starts_with($item['service-code'], 'system') && !$show_system) {
                 return $carry;
             }
 
