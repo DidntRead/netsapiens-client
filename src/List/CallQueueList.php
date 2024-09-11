@@ -35,8 +35,8 @@ class CallQueueList extends ResourceList
             $options['callqueue'] = $extension;
         }
 
-        if (!isset($options['type'])) {
-            $options['type'] = $type->value;
+        if (!isset($options['callqueue-dispatch-type'])) {
+            $options['callqueue-dispatch-type'] = $type->value;
         }
 
         if (!isset($options['description'])) {
