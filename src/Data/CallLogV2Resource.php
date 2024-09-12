@@ -46,6 +46,7 @@ use Didntread\NetSapiens\Client;
  * @property string $call_orig_from_host The host the call originated from.
  * @property string $call_orig_from_name The name of the caller on the original side.
  * @property string $call_orig_from_uri The URI of the caller on the original side.
+ * @property int $call_orig_user The user ID of the caller on the original side.
  * @property int $call_orig_from_user The user ID of the caller on the original side.
  * @property string $call_orig_ip_address The IP address the call originated from.
  * @property string $call_orig_match_uri The match URI on the original side.

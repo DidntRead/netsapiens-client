@@ -47,7 +47,7 @@ class CallLogList extends ResourceList
      */
     public function listRecordings(string $call_id): array
     {
-        $resp = $this->client->request('POST', '', [], [
+        $resp = $this->client->request('POST', '', [
             'object' => 'recording',
             'action' => 'read',
             'domain' => $this->meta['domain'],
