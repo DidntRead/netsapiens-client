@@ -18,6 +18,7 @@ class Client
     const ENV_NETSAPIENS_PASSWORD = 'NETSAPIENS_PASSWORD';
 
     const ENV_NETSAPIENS_HOST = 'NETSAPIENS_HOST';
+
     const ENV_NETSAPIENS_DEBUG = 'NETSAPIENS_DEBUG';
 
     protected \GuzzleHttp\Client $client;
@@ -29,6 +30,7 @@ class Client
     protected string $username;
 
     protected string $password;
+
     protected bool $debug;
 
     protected ?string $access_token;
@@ -76,11 +78,11 @@ class Client
 
     /**
      * Sends a request to the NetSapiens API
-     * @param string $method - HTTP method to use
-     * @param string $uri - URI to send the request to
-     * @param array $params - Query parameters to send with the request
-     * @param array $data - JSON data to send with the request
-     * @param array $headers - Headers to send with the request
+     * @param  string  $method  - HTTP method to use
+     * @param  string  $uri  - URI to send the request to
+     * @param  array  $params  - Query parameters to send with the request
+     * @param  array  $data  - JSON data to send with the request
+     * @param  array  $headers  - Headers to send with the request
      * @throws HttpException
      */
     public function request(string $method, string $uri, array $params = [], array $data = [], array $headers = []): ResponseInterface
