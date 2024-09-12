@@ -20,8 +20,8 @@ class CallLogContext extends ResourceContext
             'object' => 'cdr2',
             'action' => 'read',
             'id' => $this->getId(),
-            'start_date' => Carbon::createFromTimestamp(0)->toIso8601String(),
-            'end_date' => Carbon::createFromTimestamp(PHP_INT_MAX)->toIso8601String(),
+            'start_date' => Carbon::minValue()->toIso8601String(),
+            'end_date' => Carbon::maxValue()->toIso8601String(),
         ]);
         $data = json_decode($response->getBody(), true);
 
