@@ -16,12 +16,12 @@ class CallLogContext extends ResourceContext
 
     public function fetch(): CallLogResource
     {
-        $response = $this->client->request('POST', '/', [], [
+        $response = $this->client->request('POST', '', [
             'object' => 'cdr2',
             'action' => 'read',
             'id' => $this->getId(),
-            'start_date' => Carbon::minValue()->toIso8601String(),
-            'end_date' => Carbon::maxValue()->toIso8601String(),
+            'start_date' => Carbon::now()->subHours(24)->toIso8601ZuluString(),
+            'end_date' => Carbon::now()->toIso8601ZuluString(),
         ]);
         $data = json_decode($response->getBody(), true);
 
