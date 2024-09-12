@@ -33,10 +33,6 @@ class VoicemailGreetingContext extends ResourceContext
 
     public function updateFile($file, array $options): void
     {
-        if (!is_resource($file) || get_resource_type($file) !== 'stream') {
-            throw new \InvalidArgumentException('The file must be a resource.');
-        }
-
         $multipart = [
             [
                 'name' => 'File',

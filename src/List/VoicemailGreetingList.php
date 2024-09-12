@@ -40,10 +40,6 @@ class VoicemailGreetingList extends ResourceList
 
     public function createFile($file, array $options = []): void
     {
-        if (!is_resource($file) || get_resource_type($file) !== 'stream') {
-            throw new \InvalidArgumentException('The file must be a resource.');
-        }
-
         $multipart = [
             [
                 'name' => 'File',
@@ -59,7 +55,7 @@ class VoicemailGreetingList extends ResourceList
             ];
         }
 
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings", [], $multipart);
+        $this->client->multipartRequest('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/greetings", [], $multipart);
     }
 
     public function fetch($id): VoicemailGreetingResource
