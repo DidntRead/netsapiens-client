@@ -5,6 +5,7 @@ namespace Didntread\NetSapiens\Context;
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\UserResource;
 use Didntread\NetSapiens\List\AnswerRulesList;
+use Didntread\NetSapiens\List\MusicOnHoldList;
 use Didntread\NetSapiens\List\TimeFrameList;
 use Didntread\NetSapiens\List\VoicemailFolderList;
 use Didntread\NetSapiens\List\VoicemailGreetingList;
@@ -68,5 +69,15 @@ class UserContext extends ResourceContext
     public function voicemail(): VoicemailFolderList
     {
         return new VoicemailFolderList($this->client, $this->meta['domain'], $this->meta['id']);
+    }
+
+    public function MOHs(): MusicOnHoldList
+    {
+        return new MusicOnHoldList($this->client, $this->meta['domain'], $this->meta['id']);
+    }
+
+    public function MOH(int $id): MusicOnHoldContext
+    {
+        return new MusicOnHoldContext($this->client, $this->meta['domain'], $this->meta['id'], $id);
     }
 }

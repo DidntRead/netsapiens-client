@@ -7,6 +7,7 @@ use Didntread\NetSapiens\Data\DomainResource;
 use Didntread\NetSapiens\List\CallLogList;
 use Didntread\NetSapiens\List\CallLogV2List;
 use Didntread\NetSapiens\List\CallQueueList;
+use Didntread\NetSapiens\List\MusicOnHoldList;
 use Didntread\NetSapiens\List\PhoneNumberList;
 use Didntread\NetSapiens\List\SiteList;
 use Didntread\NetSapiens\List\TimeFrameList;
@@ -105,5 +106,15 @@ class DomainContext extends ResourceContext
     public function site(string $id): SiteContext
     {
         return new SiteContext($this->client, $this->getId(), $id);
+    }
+
+    public function shared_MOHs(): MusicOnHoldList
+    {
+        return new MusicOnHoldList($this->client, $this->getId(), null);
+    }
+
+    public function shared_MOH(string $index): MusicOnHoldContext
+    {
+        return new MusicOnHoldContext($this->client, $this->getId(), null, $index);
     }
 }
