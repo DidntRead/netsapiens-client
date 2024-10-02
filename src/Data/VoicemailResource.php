@@ -40,7 +40,7 @@ class VoicemailResource extends JsonResource
             'filename' => $parameters['filename'],
             'file_duration_seconds' => $parameters['file-duration-seconds'],
             'file_size_kilobytes' => $parameters['file-size-kilobytes'],
-            'file_access_url' => $parameters['file-access-url'],
+            'file_access_url' => $parameters['file-access-url'] ?? $parameters['file-access-url '],
             'created_at' => Carbon::parse($parameters['created-datetime']),
             'file_script_text' => $parameters['file-script-text'],
             'file_source' => empty($parameters['file-source']) ? FileSource::from($parameters['file-source']) : FileSource::Unknown,
