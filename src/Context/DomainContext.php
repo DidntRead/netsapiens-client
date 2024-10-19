@@ -117,4 +117,14 @@ class DomainContext extends ResourceContext
     {
         return new MusicOnHoldContext($this->client, $this->getId(), null, $index);
     }
+
+    public function dial_plan(string $id): DialPlanContext
+    {
+        return new DialPlanContext($this->client, $this->getId(), $id);
+    }
+
+    public function default_dial_plan(): DialPlanContext
+    {
+        return new DialPlanContext($this->client, $this->getId(), $this->getId());
+    }
 }
