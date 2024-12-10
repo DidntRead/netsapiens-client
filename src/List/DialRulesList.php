@@ -80,6 +80,10 @@ class DialRulesList extends ResourceList
             $options['dial-rule-translation-destination-user'] = $translation_dest_user;
         }
 
+        if (!isset($options['dail-rule-matching-from-uri'])) {
+            $options['dail-rule-matching-from-uri'] = '*';
+        }
+
         $this->client->request('POST', "v2/domains/{$this->meta['domain']}/dialplans/{$this->meta['dial_plan']}/dialrules", [], $options);
 
         return $this->generate_id($options);

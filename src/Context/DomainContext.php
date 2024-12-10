@@ -22,7 +22,7 @@ class DomainContext extends ResourceContext
 
     public function fetch(): DomainResource
     {
-        $response = $this->client->request('GET', "v2/domains/{$this->id}");
+        $response = $this->client->request('GET', "v2/domains/{$this->getId()}");
         $data = json_decode($response->getBody(), true);
 
         return new DomainResource($this->client, $data);
@@ -30,12 +30,12 @@ class DomainContext extends ResourceContext
 
     public function update(array $options): void
     {
-        $this->client->request('PUT', "v2/domains/{$this->id}", [], $options);
+        $this->client->request('PUT', "v2/domains/{$this->getId()}", [], $options);
     }
 
     public function delete(): void
     {
-        $this->client->request('DELETE', "v2/domains/{$this->id}");
+        $this->client->request('DELETE', "v2/domains/{$this->getId()}");
     }
 
     public function users(): UserList
