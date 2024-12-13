@@ -8,6 +8,7 @@ use Didntread\NetSapiens\List\CallLogList;
 use Didntread\NetSapiens\List\CallLogV2List;
 use Didntread\NetSapiens\List\CallQueueList;
 use Didntread\NetSapiens\List\MusicOnHoldList;
+use Didntread\NetSapiens\List\PhoneList;
 use Didntread\NetSapiens\List\PhoneNumberList;
 use Didntread\NetSapiens\List\SiteList;
 use Didntread\NetSapiens\List\TimeFrameList;
@@ -126,5 +127,15 @@ class DomainContext extends ResourceContext
     public function default_dial_plan(): DialPlanContext
     {
         return new DialPlanContext($this->client, $this->getId(), $this->getId());
+    }
+
+    public function phone(string $mac): PhoneContext
+    {
+        return new PhoneContext($this->client, $this->getId(), $mac);
+    }
+
+    public function phones(): PhoneList
+    {
+        return new PhoneList($this->client, $this->getId());
     }
 }
