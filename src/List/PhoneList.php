@@ -3,9 +3,7 @@
 namespace Didntread\NetSapiens\List;
 
 use Didntread\NetSapiens\Client;
-use Didntread\NetSapiens\Context\AgentContext;
 use Didntread\NetSapiens\Context\PhoneContext;
-use Didntread\NetSapiens\Data\AgentResource;
 use Didntread\NetSapiens\Data\PhoneResource;
 
 class PhoneList extends ResourceList

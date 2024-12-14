@@ -3,8 +3,6 @@
 namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
-use Didntread\NetSapiens\Data\AnswerRules\AnswerRules;
-use Didntread\NetSapiens\Data\AnswerRules\AnswerRulesResource;
 use Didntread\NetSapiens\List\DialRulesList;
 
 class DialPlanContext extends ResourceContext

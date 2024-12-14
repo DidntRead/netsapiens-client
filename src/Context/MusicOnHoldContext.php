@@ -4,7 +4,6 @@ namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\MOHResource;
-use Didntread\NetSapiens\Data\VoicemailGreetingResource;
 
 class MusicOnHoldContext extends ResourceContext
 {

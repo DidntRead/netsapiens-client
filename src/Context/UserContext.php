@@ -5,6 +5,7 @@ namespace Didntread\NetSapiens\Context;
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Data\UserResource;
 use Didntread\NetSapiens\List\AnswerRulesList;
+use Didntread\NetSapiens\List\DeviceList;
 use Didntread\NetSapiens\List\MusicOnHoldList;
 use Didntread\NetSapiens\List\TimeFrameList;
 use Didntread\NetSapiens\List\VoicemailFolderList;
@@ -79,5 +80,15 @@ class UserContext extends ResourceContext
     public function MOH(int $id): MusicOnHoldContext
     {
         return new MusicOnHoldContext($this->client, $this->meta['domain'], $this->meta['id'], $id);
+    }
+
+    public function device(string $device): DeviceContext
+    {
+        return new DeviceContext($this->client, $this->meta['domain'], $this->meta['id'], $device);
+    }
+
+    public function devices(): DeviceList
+    {
+        return new DeviceList($this->client, $this->meta['domain'], $this->meta['id']);
     }
 }

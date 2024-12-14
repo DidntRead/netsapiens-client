@@ -3,10 +3,7 @@
 namespace Didntread\NetSapiens\Context;
 
 use Didntread\NetSapiens\Client;
-use Didntread\NetSapiens\Data\AnswerRules\AnswerRules;
-use Didntread\NetSapiens\Data\AnswerRules\AnswerRulesResource;
 use Didntread\NetSapiens\Data\DialRuleResource;
-use Didntread\NetSapiens\Data\PhoneNumberResource;
 
 class DialRulesContext extends ResourceContext
 {

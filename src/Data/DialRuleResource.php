@@ -3,7 +3,6 @@
 namespace Didntread\NetSapiens\Data;
 
 use Didntread\NetSapiens\Client;
-use Didntread\NetSapiens\Enum\CallQueueType;
 use Didntread\NetSapiens\Enum\DialRuleApplication;
 
 /**
