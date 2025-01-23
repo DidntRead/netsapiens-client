@@ -194,7 +194,11 @@ class Client
             $data = json_decode($response->getBody()->getContents(), true);
             $api_version = $data['apiversion'] ?? null;
 
-            if ($api_version && !str_contains($api_version, '44.1')) {
+            $api_version_split = explode('.', $api_version ?? '');
+            $api_version_major = (int) ($api_version_split[0] ?? null);
+            $api_version_minor = (int) ($api_version_split[1] ?? null);
+
+            if ($api_version && $api_version_major == 44 && ($api_version_minor == 1 || $api_version_minor == 2)) {
                 throw new ConfigurationException('Unsupported API version: ' . $api_version);
             }
 
