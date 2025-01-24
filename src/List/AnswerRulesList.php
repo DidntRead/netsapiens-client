@@ -30,9 +30,9 @@ class AnswerRulesList extends ResourceList
         }, $data);
     }
 
-    public function create(AnswerRules $rules): string
+    public function create(AnswerRules $rules, array $options = []): string
     {
-        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules", [], $rules->toJsonArray());
+        $this->client->request('POST', "v2/domains/{$this->meta['domain']}/users/{$this->meta['user']}/answerrules", [], $rules->toJsonArray() + $options);
 
         return $rules->getTimeFrame();
     }
