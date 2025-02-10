@@ -74,7 +74,7 @@ class CallLogV2List extends ResourceList
         }, $data);
     }
 
-    public function count(Carbon $start, Carbon $end, ?CallLogType $type): array
+    public function count(Carbon $start, Carbon $end, ?CallLogType $type): int
     {
         $query = [
             'datetime-start' => $start->toIso8601String(),
