@@ -270,6 +270,11 @@ class Client
         return new List\SubscriptionList($this);
     }
 
+    public function call_logs_v2(): List\CallLogV2List
+    {
+        return new List\CallLogV2List($this);
+    }
+
     public function __toString(): string
     {
         return '[NetSapiensClient ' . $this->getUsername() . ']';

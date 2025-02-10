@@ -12,10 +12,22 @@ use Didntread\NetSapiens\Enum\CallLogType;
 
 class CallLogV2List extends ResourceList
 {
-    public function __construct(Client $client, string $domain)
+    public function __construct(Client $client, ?string $domain = null)
     {
         parent::__construct($client);
-        $this->meta['domain'] = $domain;
+
+        if ($domain) {
+            $this->meta['domain'] = $domain;
+        }
+    }
+
+    private function buildUrl(string $path): string
+    {
+        if (isset($this->meta['domain'])) {
+            return "v2/domains/{$this->meta['domain']}/{$path}";
+        } else {
+            return "v2/{$path}";
+        }
     }
 
     /**
@@ -25,7 +37,7 @@ class CallLogV2List extends ResourceList
      * @param  CallLogType|null  $type  - Call type
      * @return array<CallLogResource>
      */
-    public function list(Carbon $start, Carbon $end, ?CallLogType $type): array
+    public function list(Carbon $start, Carbon $end, ?CallLogType $type, array $options = []): array
     {
         $query = [
             'datetime-start' => $start->toIso8601String(),
@@ -34,7 +46,7 @@ class CallLogV2List extends ResourceList
         if ($type) {
             $query['type'] = $type->value;
         }
-        $response = $this->client->request('GET', "v2/domains/{$this->meta['domain']}/cdrs", $query);
+        $response = $this->client->request('GET', $this->buildUrl('cdrs'), $query + $options);
         $data = json_decode($response->getBody(), true);
 
         return array_map(function ($item) {
@@ -60,6 +72,21 @@ class CallLogV2List extends ResourceList
         return array_map(function ($item) {
             return new CallRecordingResource($this->client, $item);
         }, $data);
+    }
+
+    public function count(Carbon $start, Carbon $end, ?CallLogType $type): array
+    {
+        $query = [
+            'datetime-start' => $start->toIso8601String(),
+            'datetime-end' => $end->toIso8601String(),
+        ];
+        if ($type) {
+            $query['type'] = $type->value;
+        }
+        $response = $this->client->request('GET', $this->buildUrl('cdrs/count'), $query);
+        $data = json_decode($response->getBody(), true);
+
+        return $data['total'];
     }
 
     public function fetch(string $id): ?CallLogV2Resource
