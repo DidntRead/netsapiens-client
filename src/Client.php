@@ -119,7 +119,13 @@ class Client
         } catch (GuzzleException $e) {
             if ($this->debug) {
                 $this->dumpResponseInfo($e->getResponse());
+            }
 
+            if ($e->getCode() === 401) {
+                // Attempt to re-authenticate and retry the request
+                if ($this->authenticate()) {
+                    return $this->request($method, $uri, $params, $data, $headers);
+                }
             }
 
             throw new HttpException($method, $uri, $data, $e->getCode());
