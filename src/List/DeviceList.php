@@ -25,7 +25,7 @@ class DeviceList extends ResourceList
         $data = json_decode($response->getBody()->getContents(), true);
 
         return array_map(function ($item) {
-            return new DeviceList($this->client, $this->meta['user'], $item);
+            return new DeviceResource($this->client, $item);
         }, $data);
     }
 
