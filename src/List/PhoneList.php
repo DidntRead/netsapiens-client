@@ -4,7 +4,10 @@ namespace Didntread\NetSapiens\List;
 
 use Didntread\NetSapiens\Client;
 use Didntread\NetSapiens\Context\PhoneContext;
+use Didntread\NetSapiens\Data\PhoneModelResource;
 use Didntread\NetSapiens\Data\PhoneResource;
+use Didntread\NetSapiens\Data\ProvisionServerResource;
+use Didntread\NetSapiens\Enum\PhoneBrand;
 
 class PhoneList extends ResourceList
 {
@@ -25,6 +28,36 @@ class PhoneList extends ResourceList
 
         return array_map(function ($item) {
             return new PhoneResource($this->client, $item);
+        }, $data);
+    }
+
+    /**
+     * Return supported phone models for a brand.
+     * @param  PhoneBrand  $brand  - phone brand
+     * @return array<PhoneModelResource> list of models
+     */
+    public function listSupported(PhoneBrand $brand): array
+    {
+        $response = $this->client->request('GET', 'v2/phones/models', ['brand' => $brand->value]);
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        return array_map(function ($item) {
+            return new PhoneModelResource($this->client, $item);
+        }, $data);
+    }
+
+    /**
+     * Retrieve list of phone provision servers.
+     * @return array<ProvisionServerResource> list of servers
+     * @throws \Didntread\NetSapiens\Exceptions\HttpException
+     */
+    public function listServers(): array
+    {
+        $response = $this->client->request('GET', 'v2/phones/servers');
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        return array_map(function ($item) {
+            return new ProvisionServerResource($this->client, $item);
         }, $data);
     }
 
