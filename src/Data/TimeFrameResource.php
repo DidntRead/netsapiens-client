@@ -11,7 +11,8 @@ use Didntread\NetSapiens\Enum\TimeFrameType;
  * @property int $timeframe_id The ID of the timeframe.
  * @property string $timeframe_name The name of the timeframe.
  * @property string $timeframe_type The type of the timeframe, converted to a TimeFrameType instance.
- * @property array $timeframe_days-of-week-array An array of days of the week for the timeframe (optional, defaults to an empty array if not provided).
+ * @property array $timeframe_days_of_week_array An array of days of the week for the timeframe (optional, defaults to an empty array if not provided).
+ * @property array $timeframe_specific_dates_array An array of specific dates for the timeframe (optional, defaults to an empty array if not provided).
  */
 class TimeFrameResource extends JsonResource
 {
@@ -34,6 +35,7 @@ class TimeFrameResource extends JsonResource
             'timeframe_name' => $properties['timeframe-name'],
             'timeframe_type' => TimeFrameType::from($properties['timeframe-type']),
             'timeframe_days_of_week_array' => $properties['timeframe-days-of-week-array'] ?? [],
+            'timeframe_specific_dates_array' => $properties['timeframe-specific-dates-array'] ?? [],
         ];
     }
 
