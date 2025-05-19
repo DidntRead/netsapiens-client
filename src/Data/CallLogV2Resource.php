@@ -181,7 +181,7 @@ class CallLogV2Resource extends JsonResource
             'call_term_domain' => $data['call-term-domain'],
             'call_term_ip_address' => $data['call-term-ip-address'],
             'call_term_match_uri' => $data['call-term-match-uri'],
-            'call_term_pre_routing_uri' => $data['call-term-pre-reouting-uri'],
+            'call_term_pre_routing_uri' => $data['call-term-pre-routing-uri'] ?? $data['call-term-pre-reouting-uri'],
             'call_term_reseller' => $data['call-term-reseller'],
             'call_term_site' => $data['call-term-site'],
             'call_term_to_uri' => $data['call-term-to-uri'],
