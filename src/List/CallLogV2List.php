@@ -55,6 +55,30 @@ class CallLogV2List extends ResourceList
     }
 
     /**
+     * Retrieve a list of all call logs.
+     * @param  Carbon  $start  - Start date
+     * @param  Carbon  $end  - End date
+     * @param  CallLogType|null  $type  - Call type
+     * @return array<CallLogResource>
+     */
+    public function listAll(Carbon $start, Carbon $end, ?CallLogType $type): array
+    {
+        $offset = 0;
+        $data = [];
+
+        do {
+            $result = $this->list($start, $end, $type, [
+                'offset' => $offset,
+                'limit' => 100,
+            ]);
+            $offset += 100;
+            $data = array_merge($data, $result);
+        } while (count($result));
+
+        return $data;
+    }
+
+    /**
      * Retrieve a list of call recordings.
      * @return array<CallRecordingResource>
      */
