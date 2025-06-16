@@ -63,17 +63,20 @@ class CallLogV2List extends ResourceList
      */
     public function listAll(Carbon $start, Carbon $end, ?CallLogType $type): array
     {
-        $offset = 0;
+        $count = $this->count($start, $end, $type);
         $data = [];
 
-        do {
-            $result = $this->list($start, $end, $type, [
-                'offset' => $offset,
+        for ($offset = 0; $offset < $count; $offset += 100) {
+            $options = [
                 'limit' => 100,
-            ]);
-            $offset += 100;
-            $data = array_merge($data, $result);
-        } while (count($result));
+                'start' => $offset,
+            ];
+            $logs = $this->list($start, $end, $type, $options);
+            if (empty($logs)) {
+                break;
+            }
+            $data = array_merge($data, $logs);
+        }
 
         return $data;
     }
