@@ -79,7 +79,7 @@ class DomainResource extends JsonResource
             'limits_max_departments' => $parameters['limits-max-departments'],
             'limits_max_fax_accounts' => $parameters['limits-max-fax-accounts'],
             'limits_max_sites' => $parameters['limits-max-sites'],
-            'limits_max_subscriber_resources_total' => $parameters['limits-max-subcriber-resources-total'],
+            'limits_max_subscriber_resources_total' => $parameters['limits-max-subcriber-resources-total'] ?? null,
             'limits_max_users' => $parameters['limits-max-users'],
             'music_on_hold_enabled' => Deserialize::bool($parameters['music-on-hold-enabled']),
             'music_on_hold_randomized_enabled' => Deserialize::bool($parameters['music-on-hold-randomized-enabled']),
