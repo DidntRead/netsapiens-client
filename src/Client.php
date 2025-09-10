@@ -42,7 +42,7 @@ class Client
      * @param $baseUri - Base URI for the NetSapiens API
      * @throws ConfigurationException If valid authentication credentials are not provided
      */
-    public function __construct(?string $client_id = null, ?string $client_secret = null, ?string $username = null, ?string $password = null, ?string $baseUri = null, bool $debug = false)
+    public function __construct(?string $client_id = null, ?string $client_secret = null, ?string $username = null, ?string $password = null, ?string $baseUri = null, bool $debug = false, array $client_options = [])
     {
         $this->client_id = $client_id ?? getenv(self::ENV_NETSAPIENS_CLIENT_ID);
         $this->client_secret = $client_secret ?? getenv(self::ENV_NETSAPIENS_CLIENT_SECRET);
@@ -57,7 +57,7 @@ class Client
 
         $this->client = new \GuzzleHttp\Client([
             'base_uri' => $baseUri ?? getenv(self::ENV_NETSAPIENS_HOST),
-        ]);
+        ] + $client_options);
 
         if (!$this->authenticate()) {
             throw new ConfigurationException('Invalid credentials');
