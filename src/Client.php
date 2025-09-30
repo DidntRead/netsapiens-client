@@ -85,7 +85,7 @@ class Client
      * @param  array  $headers  - Headers to send with the request
      * @throws HttpException
      */
-    public function request(string $method, string $uri, array $params = [], array $data = [], array $headers = []): ResponseInterface
+    public function request(string $method, string $uri, array $params = [], array $data = [], array $headers = [], int $retries = 1): ResponseInterface
     {
         if (!\array_key_exists('Accept', $headers)) {
             $headers['Accept'] = 'application/json';
@@ -123,8 +123,8 @@ class Client
 
             if ($e->getCode() === 401) {
                 // Attempt to re-authenticate and retry the request
-                if ($this->authenticate()) {
-                    return $this->request($method, $uri, $params, $data, $headers);
+                if ($this->authenticate() && $retries > 0) {
+                    return $this->request($method, $uri, $params, $data, $headers, $retries - 1);
                 }
             }
 
