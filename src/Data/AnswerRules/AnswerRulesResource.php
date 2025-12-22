@@ -15,7 +15,6 @@ use Didntread\NetSapiens\Exceptions\NetSapiensException;
  * @property bool $is-active Whether the rule is active.
  * @property int $ordinal-priority The priority level of the rule.
  * @property bool $enabled Whether the rule is enabled (processed by Deserialize::bool()).
- * @property mixed $new_time_frame_data Additional time frame data (if any).
  * @property array $simultaneous_ring Simultaneous ring rule settings.
  * @property array $do_not_disturb Do not disturb rule settings.
  * @property array $forward_always Forward always rule settings.
@@ -47,9 +46,8 @@ class AnswerRulesResource extends JsonResource
             'domain' => $parameters['domain'],
             'user' => $parameters['user'],
             'is_active' => $parameters['is-active'],
-            'ordinal_priority' => $parameters['ordinal-priority'],
             'enabled' => Deserialize::bool($parameters['enabled']),
-            'new_time_frame_data' => $parameters['new_time_frame_data'],
+            'ordinal_priority' => $parameters['ordinal-priority'],
             'simultaneous_ring' => $parameters['simultaneous-ring'] ?? [],
             'do_not_disturb' => $parameters['do-not-disturb'] ?? [],
             'forward_always' => $parameters['forward-always'] ?? [],
