@@ -48,8 +48,6 @@ class AnswerRulesResource extends JsonResource
             'user' => $parameters['user'],
             'is_active' => $parameters['is-active'],
             'ordinal_priority' => $parameters['ordinal-priority'],
-            'enabled' => Deserialize::bool($parameters['enabled']),
-            'new_time_frame_data' => $parameters['new_time_frame_data'],
             'simultaneous_ring' => $parameters['simultaneous-ring'] ?? [],
             'do_not_disturb' => $parameters['do-not-disturb'] ?? [],
             'forward_always' => $parameters['forward-always'] ?? [],
