@@ -21,6 +21,8 @@ enum DialRuleApplication: string
     case ToConnectionAddHeaderForceCallerId = 'to-connection-add-header-force-caller-id';
     case ToConnectionAddHeaderNoTimeout = 'to-connection-add-header-no-timeout';
     case ToConnectionAddHeader = 'to-connection-add-header';
+
+    case ToConnectionAddHeaderUpdateCdrByUser = 'to-connection-add-header-update-cdr-by-user';
     case ToSingleDeviceAddHeaderAllowVoicemail = 'to-single-device-add-header-allow-voicemail';
     case ToSingleDeviceAddHeaderAllowVoicemailResidential = 'to-single-device-add-header-allow-voicemail-residential';
     case ToSingleDeviceAddHeader = 'to-single-device-add-header';
